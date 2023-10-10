@@ -2,7 +2,7 @@ server:
   port: 8025
 spring:
   profiles:
-    active: dev-postgres
+    active: dev-mysql
   jpa:
     properties:
       javax:
@@ -31,3 +31,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+---
+spring:
+  config:
+    activate:
+      on-profile: dev-mysql
+  datasource:
+    url: jdbc:mysql://localhost:3306/pw25s
+    username: root
+    password: root
