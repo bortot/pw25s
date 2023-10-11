@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_product")
+@Table(name = "Product")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -20,6 +20,7 @@ public class Product {
     private Long id;
 
     @NotNull
+    @Column
     @Getter @Setter
     private String name;
 
@@ -29,13 +30,14 @@ public class Product {
     private String description;
 
     @NotNull
+    @Column
     @Getter @Setter
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @JoinColumn(name = "product_category_id", referencedColumnName = "id")
     @Getter @Setter
-    private Category category;
+    private ProductCategory productCategory;
 
     @Override
     public boolean equals(Object o) {

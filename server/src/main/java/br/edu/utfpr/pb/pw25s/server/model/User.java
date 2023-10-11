@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 @Entity
-@Table(name = "tb_user") //, uniqueConstraints = @UniqueConstraint(columnNames = "username"))
+@Table(name = "Users") //, uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -44,6 +44,11 @@ public class User implements UserDetails {
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "{br.edu.utfpr.pb.pw26s.server.user.password.constraints.Pattern.message}")
     @Getter @Setter
     private String password;
+
+    @NotNull
+    @Size(min=3, max=255)
+    @Column(name = "email")
+    private String email;
 
     @Override
     @Transient
