@@ -1,8 +1,8 @@
 package br.edu.utfpr.pb.pw25s.server.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Data
@@ -19,5 +19,5 @@ public class ProductDTO {
     @NotNull
     private BigDecimal price;
 
-    private CategoryDTO category;
+    private ProductCategoryDTO category;
 }

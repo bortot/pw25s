@@ -48,6 +48,7 @@ public class User implements UserDetails {
     @NotNull
     @Size(min=3, max=255)
     @Column(name = "email")
+    @Getter @Setter
     private String email;
 
     @Override

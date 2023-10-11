@@ -1,6 +1,6 @@
 package br.edu.utfpr.pb.pw25s.server.controller;
 
-import br.edu.utfpr.pb.pw25s.server.dto.CategoryDTO;
+import br.edu.utfpr.pb.pw25s.server.dto.ProductCategoryDTO;
 import br.edu.utfpr.pb.pw25s.server.model.ProductCategory;
 import br.edu.utfpr.pb.pw25s.server.service.ICrudService;
 import br.edu.utfpr.pb.pw25s.server.service.IProductCategoryService;
@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("categories")
-public class ProductCategoryController extends CrudController<ProductCategory, CategoryDTO, Long> {
+public class ProductCategoryController extends CrudController<ProductCategory, ProductCategoryDTO, Long> {
 
     private static IProductCategoryService categoryService;
     private static ModelMapper modelMapper;
 
     public ProductCategoryController(IProductCategoryService categoryService,
                                      ModelMapper modelMapper) {
-        super(ProductCategory.class, CategoryDTO.class);
+        super(ProductCategory.class, ProductCategoryDTO.class);
         ProductCategoryController.categoryService = categoryService;
         ProductCategoryController.modelMapper = modelMapper;
     }
