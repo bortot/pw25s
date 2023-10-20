@@ -78,17 +78,9 @@ public class UserControllerTest {
     }
 
     @Test
-    public void postUser_whenUserHasNullUsername_receiveBadRequest() {
+    public void postUser_whenUserHasNullName_receiveBadRequest() {
         User user = createValidUser();
-        user.setUsername(null);
-        ResponseEntity<Object> response = postSignup(user, Object.class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-    }
-
-    @Test
-    public void postUser_whenUserHasNullDisplayName_receiveBadRequest() {
-        User user = createValidUser();
-        user.setDisplayName(null);
+        user.setName(null);
         ResponseEntity<Object> response = postSignup(user, Object.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
@@ -104,7 +96,7 @@ public class UserControllerTest {
     @Test
     public void postUser_whenUserHasUsernameWithLessThanRequired_receiveBadRequest() {
         User user = createValidUser();
-        user.setUsername("abc");
+        user.setName("abc");
         ResponseEntity<Object> response = postSignup(user, Object.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
@@ -112,7 +104,7 @@ public class UserControllerTest {
     @Test
     public void postUser_whenUserHasDisplayNameWithLessThanRequired_receiveBadRequest() {
         User user = createValidUser();
-        user.setDisplayName("abc");
+        user.setName("abc");
         ResponseEntity<Object> response = postSignup(user, Object.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
@@ -130,7 +122,7 @@ public class UserControllerTest {
         User user = createValidUser();
         String stringWith256Chars = IntStream.rangeClosed(1, 256).mapToObj(x -> "a")
                 .collect(Collectors.joining());
-        user.setUsername(stringWith256Chars);
+        user.setName(stringWith256Chars);
         ResponseEntity<Object> response = postSignup(user, Object.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
@@ -140,7 +132,7 @@ public class UserControllerTest {
         User user = createValidUser();
         String stringWith256Chars = IntStream.rangeClosed(1, 256).mapToObj(x -> "a")
                 .collect(Collectors.joining());
-        user.setDisplayName(stringWith256Chars);
+        user.setName(stringWith256Chars);
         ResponseEntity<Object> response = postSignup(user, Object.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
@@ -196,7 +188,7 @@ public class UserControllerTest {
     @Test
     public void postUser_whenUserHasNullUsername_receiveMessageOfNullUsername() {
         User user = createValidUser();
-        user.setUsername(null);
+        user.setName(null);
         ResponseEntity<ApiError> response = postSignup(user, ApiError.class);
         Map<String, String> validationErrors = response.getBody().getValidationErrors();
         // assertThat(validationErrors.get("username")).isEqualTo("O 'usuário' não pode ser nulo");
@@ -215,7 +207,7 @@ public class UserControllerTest {
     @Test
     public void postUser_whenUserHasInvalidLength_receiveGenericMessageOfSizeError() {
         User user = createValidUser();
-        user.setUsername("abc");
+        user.setName("abc");
         ResponseEntity<ApiError> response = postSignup(user, ApiError.class);
         Map<String, String> validationErrors = response.getBody().getValidationErrors();
         // assertThat(validationErrors.get("username")).isEqualTo("O campo usuário deve possuir entre 4 e 50 caracteres");
@@ -254,8 +246,8 @@ public class UserControllerTest {
 
     private User createValidUser() {
         User user = new User();
-        user.setUsername("test-user");
-        user.setDisplayName("test-display");
+        user.setName("test-user");
+        user.setEmail("bortotabel@gmail.com");
         user.setPassword("P4ssword");
         return user;
     }

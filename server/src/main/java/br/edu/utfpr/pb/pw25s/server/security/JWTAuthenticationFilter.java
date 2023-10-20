@@ -53,7 +53,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             //com falha na autenticação (classe: EntryPointUnauthorizedHandler)
             if (request.getInputStream() != null && request.getInputStream().available() > 0) {
                 credentials = new ObjectMapper().readValue(request.getInputStream(), User.class);
-                user = (User) authService.loadUserByUsername(credentials.getUsername());
+                user = (User) authService.loadUserByUsername(credentials.getEmail());
             }
             //Caso o usuário seja encontrado, o objeto authenticationManager encarrega-se de autenticá-lo.
             //Como o authenticationManager foi configurado na classe WebSecurity e, foi informado o método
@@ -62,7 +62,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             //Caso ocorra sucesso será chamado o método: successfulAuthentication dessa classe
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            credentials.getUsername(),
+                            credentials.getEmail(),
                             credentials.getPassword(),
                             user.getAuthorities()
                     )

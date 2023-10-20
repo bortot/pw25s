@@ -26,18 +26,11 @@ public class User implements UserDetails {
     @Getter @Setter
     private long id;
 
-    @UniqueUsername
-    @NotNull(message = "{br.edu.utfpr.pb.pw26s.server.user.username.constraints.NotNull.message}")
-    @Size(min = 4, max = 50, message = "{br.edu.utfpr.pb.pw26s.server.user.username.constraints.Size.message}")
-    @Column(length = 50)
-    @Getter @Setter
-    private String username;
-
     @NotNull
-    @Size(min = 4, max = 50)
-    @Column(length = 50, name = "display_name")
+    @Size(min = 4, max = 80)
+    @Column(length = 80, name = "name")
     @Getter @Setter
-    private String displayName;
+    private String name;
 
     @NotNull(message = "{br.edu.utfpr.pb.pw26s.server.user.password.constraints.NotNull.message}")
     @Size(min = 6)
@@ -47,7 +40,7 @@ public class User implements UserDetails {
 
     @NotNull
     @Size(min=3, max=255)
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @Getter @Setter
     private String email;
 
@@ -56,6 +49,9 @@ public class User implements UserDetails {
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return AuthorityUtils.createAuthorityList("ROLE_USER");
+    }
+    public String getUsername() {
+        return this.email;
     }
 
     @Override

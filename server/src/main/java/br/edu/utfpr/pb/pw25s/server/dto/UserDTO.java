@@ -17,12 +17,8 @@ public class UserDTO {
     private Long id;
 
     @NotNull
-    @Size(min = 4, max = 50)
-    private String username;
-
-    @NotNull
-    @Size(min = 4, max = 50)
-    private String displayName;
+    @Size(min = 4, max = 80)
+    private String name;
 
     @NotNull(message = "{br.edu.utfpr.pb.pw26s.server.user.password.constraints.NotNull.message}")
     @Size(min = 6)
@@ -36,8 +32,7 @@ public class UserDTO {
 
     public UserDTO(User user) {
         this.id = user.getId();
-        this.displayName = user.getDisplayName();
-        this.username = user.getUsername();
+        this.name = user.getName();
         this.email = user.getEmail();
     }
 }

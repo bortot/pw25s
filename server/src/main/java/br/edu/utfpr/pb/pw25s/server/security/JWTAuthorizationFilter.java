@@ -4,15 +4,15 @@ import br.edu.utfpr.pb.pw25s.server.model.User;
 import br.edu.utfpr.pb.pw25s.server.service.AuthService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
@@ -59,7 +59,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             User user = (User) authService.loadUserByUsername(username);
             //caso exista o usuário é autenticado e a requisição continua a ser executada.
             return new UsernamePasswordAuthenticationToken(
-                    user.getUsername(),
+                    user.getEmail(),
                     null,
                     user.getAuthorities());
         }

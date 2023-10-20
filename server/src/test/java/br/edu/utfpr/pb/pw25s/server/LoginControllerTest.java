@@ -70,13 +70,13 @@ public class LoginControllerTest {
         User user = userService.save(createValidUser());
         ResponseEntity<AuthenticationResponse> responseToken = login(createValidUser(), AuthenticationResponse.class);
         ResponseEntity<UserDTO> response = getUserInfo(responseToken.getBody().getToken(), UserDTO.class);
-        assertThat(response.getBody().getUsername()).isEqualTo(user.getUsername());
+        assertThat(response.getBody().getName()).isEqualTo(user.getName());
     }
 
     private User createValidUser() {
         User user = new User();
-        user.setUsername("test-user");
-        user.setDisplayName("test-display");
+        user.setName("test-user");
+        user.setEmail("bortotabel@gmail.com");
         user.setPassword("P4ssword");
         return user;
     }
