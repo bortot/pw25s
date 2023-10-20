@@ -1,6 +1,6 @@
 package br.edu.utfpr.pb.pw25s.server.model;
 
-import br.edu.utfpr.pb.pw25s.server.annotation.UniqueUsername;
+import br.edu.utfpr.pb.pw25s.server.annotation.UniqueEmail;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -39,6 +39,7 @@ public class User implements UserDetails {
     private String password;
 
     @NotNull
+    @UniqueEmail
     @Size(min=3, max=255)
     @Column(name = "email", unique = true)
     @Getter @Setter
