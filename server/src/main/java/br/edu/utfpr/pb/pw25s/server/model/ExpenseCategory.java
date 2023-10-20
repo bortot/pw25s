@@ -13,7 +13,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 @Getter @Setter
-public class ProductCategory {
+public class ExpenseCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
