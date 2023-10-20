@@ -1,6 +1,6 @@
 package br.edu.utfpr.pb.pw25s.server.dto;
 
-import br.edu.utfpr.pb.pw25s.server.annotation.UniqueUsername;
+import br.edu.utfpr.pb.pw25s.server.annotation.UniqueEmail;
 import br.edu.utfpr.pb.pw25s.server.model.User;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
