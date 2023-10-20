@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Expense")
+@Table(name = "tb_expense")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

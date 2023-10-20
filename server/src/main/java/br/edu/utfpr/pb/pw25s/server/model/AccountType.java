@@ -8,7 +8,7 @@ import lombok.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "AccountType")
+@Table(name = "tb_account_type")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

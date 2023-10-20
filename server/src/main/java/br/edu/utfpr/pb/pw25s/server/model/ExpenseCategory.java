@@ -8,7 +8,7 @@ import lombok.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ProductCategory")
+@Table(name = "tb_expense_category")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

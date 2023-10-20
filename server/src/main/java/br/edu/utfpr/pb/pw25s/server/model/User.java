@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 @Entity
-@Table(name = "Users") //, uniqueConstraints = @UniqueConstraint(columnNames = "username"))
+@Table(name = "tb_user") //, uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
