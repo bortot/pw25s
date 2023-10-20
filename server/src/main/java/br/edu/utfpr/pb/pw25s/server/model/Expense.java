@@ -40,7 +40,7 @@ public class Expense {
     private ExpenseTypeEnum transactionType;
 
     @ManyToOne
-    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
     @Getter @Setter
     private Account account;
 
