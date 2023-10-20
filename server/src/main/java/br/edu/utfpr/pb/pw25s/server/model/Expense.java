@@ -1,6 +1,7 @@
 package br.edu.utfpr.pb.pw25s.server.model;
 
 import br.edu.utfpr.pb.pw25s.server.enums.TransactionStatusEnum;
+import br.edu.utfpr.pb.pw25s.server.enums.TransactionTypeEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -36,8 +37,18 @@ public class Expense {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "expense_type", nullable = false)
-    private ExpenseTypeEnum transactionType;
+    @Column(name = "transaction_type", nullable = false)
+    private TransactionTypeEnum transactionType;
+
+    @ManyToOne
+    @JoinColumn(name = "expense_category_id", referencedColumnName = "id", nullable = false)
+    @Getter @Setter
+    private ExpenseCategory expenseCategory;
+
+    @ManyToOne
+    @JoinColumn(name = "payment_method_id", referencedColumnName = "id", nullable = false)
+    @Getter @Setter
+    private PaymentMethod paymentMethod;
 
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
