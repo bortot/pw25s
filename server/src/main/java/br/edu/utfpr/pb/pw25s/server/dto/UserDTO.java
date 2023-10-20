@@ -16,7 +16,6 @@ public class UserDTO {
 
     private Long id;
 
-    @UniqueUsername
     @NotNull
     @Size(min = 4, max = 50)
     private String username;
@@ -31,6 +30,7 @@ public class UserDTO {
     private String password;
 
     @NotNull
+    @UniqueEmail
     @Size(min=3, max=255)
     private String email;
 
