@@ -1,6 +1,7 @@
 package br.edu.utfpr.pb.pw25s.server.controller;
 
 import br.edu.utfpr.pb.pw25s.server.service.ICrudService;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,10 +72,22 @@ public abstract class CrudController <T, D, ID extends Serializable> {
     }
 
     @PostMapping
-    public ResponseEntity<D> create(@RequestBody @Valid D entity) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(convertToDto(getService().save(convertToEntity(entity))));
+    public ResponseEntity<D> create(@RequestBody @Valid D dtoEntity) {
+        T entity = convertToEntity(dtoEntity);
 
+        entity = preSave(entity);
+        entity = getService().save(entity);
+        entity = postSave(entity);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(convertToDto(entity));
+    }
+
+    public T preSave(T entity) {
+        return entity;
+    }
+
+    public T postSave(T entity) {
+        return entity;
     }
 
     @PutMapping("{id}")
