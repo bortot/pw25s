@@ -24,6 +24,7 @@ public class UserResponseDTO {
         this.name = user.getName();
         this.email = user.getEmail();
         this.authorities = new HashSet<>();
+
         for (GrantedAuthority authority: user.getAuthorities()) {
             authorities.add( new AuthorityResponseDTO(authority.getAuthority()) );
         }

@@ -41,11 +41,11 @@ public class WebSecurity {
     @Bean
     @SneakyThrows
     public SecurityFilterChain filterChain(HttpSecurity http) {
-        AuthenticationManagerBuilder authenticationManagerBuilder =
-                http.getSharedObject(AuthenticationManagerBuilder.class);
+        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder
                 .userDetailsService(authService)
                 .passwordEncoder(passwordEncoder());
+
         // authenticationManager -> responsável por gerenciar a autenticação dos usuários
         AuthenticationManager authenticationManager =
                 authenticationManagerBuilder.build();
