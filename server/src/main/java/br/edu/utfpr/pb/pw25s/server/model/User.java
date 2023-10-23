@@ -45,6 +45,10 @@ public class User implements UserDetails {
     @Getter @Setter
     private String email;
 
+    @Column(name = "token")
+    @Getter @Setter
+    private String token;
+
     @Override
     @Transient
     @JsonIgnore

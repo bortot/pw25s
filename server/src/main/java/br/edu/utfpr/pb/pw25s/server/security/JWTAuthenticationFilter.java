@@ -41,11 +41,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                                 throws AuthenticationException {
 
         try {
-            //HTTP.POST {"username":"admin", "password":"P4ssword"}
+            //HTTP.POST {"email":"admin@email", "password":"P4ssword"}
             //Obtém os dados de username e password utilizando o ObjectMapper para converter o JSON
             //em um objeto User com esses dados.
             User credentials = new User();
             User user = new User();
+
             //Verifica se o usuário existe no banco de dados, caso não exista uma Exception será disparada
             //e o código será parado de executar nessa parte e o usuário irá receber uma resposta
             //com falha na autenticação (classe: EntryPointUnauthorizedHandler)
@@ -53,6 +54,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 credentials = new ObjectMapper().readValue(request.getInputStream(), User.class);
                 user = (User) authService.loadUserByUsername(credentials.getEmail());
             }
+
             //Caso o usuário seja encontrado, o objeto authenticationManager encarrega-se de autenticá-lo.
             //Como o authenticationManager foi configurado na classe WebSecurity e, foi informado o método
             //de criptografia da senha, a senha informada durante a autenticação é criptografada e
@@ -78,16 +80,21 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication authResult) throws IOException, ServletException {
 
         User user = (User) authService.loadUserByUsername(authResult.getName());
+
         // o método create() da classe JWT é utilizado para criação de um novo token JWT
         String token = JWT.create()
                 // o objeto authResult possui os dados do usuário autenticado, nesse caso o método getName() retorna o username do usuário foi autenticado no método attemptAuthentication.
                 .withSubject(authResult.getName())
+
                 //a data de validade do token é a data atual mais o valor armazenado na constante EXPIRATION_TIME, nesse caso 1 dia
                 .withExpiresAt(
                     new Date(System.currentTimeMillis()  + SecurityConstants.EXPIRATION_TIME)
                 )
+
                 //Por fim é informado o algoritmo utilizado para assinar o token e por parâmetro a chave utilizada para assinatura. O Secret também pode ser alterado na classe SecurityConstants que armazena alguns dados de configuração do Spring Security
                 .sign(Algorithm.HMAC512(SecurityConstants.SECRET));
+
+        authService.updateUserToken(user.getId(), token);
 
         response.setContentType("application/json");
 
